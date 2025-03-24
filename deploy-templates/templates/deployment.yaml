@@ -40,6 +40,7 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+<<<<<<< HEAD
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
@@ -73,13 +74,21 @@ spec:
                 name: cm-extra-env
             - secretRef:
                 name: secret-extra-env      
+=======
+>>>>>>> parent of 5156bce (Add objects task8)
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}          
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
       volumes:
+<<<<<<< HEAD
         - name: configmap-volume
           configMap:
             name: cm-extra-config
@@ -99,6 +108,10 @@ spec:
               - key: application.secret.properties
                 path: application.secret.properties
           
+=======
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+>>>>>>> parent of 5156bce (Add objects task8)
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
