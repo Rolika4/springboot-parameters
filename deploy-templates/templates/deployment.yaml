@@ -40,7 +40,6 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-<<<<<<< HEAD
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
@@ -54,11 +53,6 @@ spec:
                 secretKeyRef:
                   name: secret-extra-config
                   key: ENV_VAR4
-            - name: ENV_VAR5
-              valueFrom:
-                secretKeyRef:
-                  name: springboot-parameters
-                  key: ENV_VAR5
           volumeMounts:
             - name: configmap-volume
               readOnly: true
@@ -66,52 +60,30 @@ spec:
             - name: secret-volume
               readOnly: true
               mountPath: /secret-config
-            - name: ps-volume
-              readOnly: true
-              mountPath: /ps-config    
           envFrom:
             - configMapRef:
                 name: cm-extra-env
             - secretRef:
                 name: secret-extra-env      
-=======
->>>>>>> parent of 5156bce (Add objects task8)
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
       volumes:
-<<<<<<< HEAD
         - name: configmap-volume
           configMap:
             name: cm-extra-config
             items:
               - key: application.properties
                 path: application.properties
-        - name: ps-volume
-          secret:
-            secretName: springboot-parameters
-            items:
-              - key: application.secret.properties.from.ps
-                path: application.secret.properties.from.ps          
         - name: secret-volume
           secret:
             secretName: secret-extra-config
             items:
               - key: application.secret.properties
                 path: application.secret.properties
-          
-=======
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
->>>>>>> parent of 5156bce (Add objects task8)
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
