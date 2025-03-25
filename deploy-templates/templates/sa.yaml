@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::183631338639:role/krci-cmtr-a000000a-assume-role
-  name: externalsecrets-aws
-
